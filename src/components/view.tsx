@@ -57,6 +57,7 @@ function Line({ start, end }: { start: number[], end: number[] }) {
   useLayoutEffect(() => {
     const lineRef = ref.current;
     if (lineRef) {
+      // @ts-ignore ignore for now
       ref.current.geometry.setFromPoints([start, end].map((point) => new THREE.Vector3(...point)))
     }
   }, [start, end]);
