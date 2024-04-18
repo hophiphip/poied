@@ -8,8 +8,14 @@ import {
   SaveOutlined,
 } from "@ant-design/icons";
 
-const PointEditForm = ({ point, pointIndex }: { point: Point; pointIndex: number }) => {
-  const [editPointsForm] = Form.useForm();
+const PointEditForm = ({
+  point,
+  pointIndex,
+}: {
+  point: Point;
+  pointIndex: number;
+}) => {
+  const [editPointsForm] = Form.useForm<Point>();
 
   const updatePoint = usePointsStore((state) => state.updatePoint);
   const removePoint = usePointsStore((state) => state.removePoint);
@@ -21,33 +27,33 @@ const PointEditForm = ({ point, pointIndex }: { point: Point; pointIndex: number
 
   const onDeletePoint = useCallback(() => {
     removePoint(pointIndex);
-  }, [pointIndex]);
+  }, [pointIndex, removePoint]);
 
   return (
     <Form form={editPointsForm} initialValues={point}>
-        <Space.Compact>
-            <Form.Item name={"x"} rules={[{ required: true }]}>
-                <InputNumber addonBefore={"x"} />
-            </Form.Item>
+      <Space.Compact>
+        <Form.Item name={"x"} rules={[{ required: true }]}>
+          <InputNumber addonBefore={"x"} />
+        </Form.Item>
 
-            <Form.Item name={"y"} rules={[{ required: true }]}>
-                <InputNumber addonBefore={"y"} />
-            </Form.Item>
+        <Form.Item name={"y"} rules={[{ required: true }]}>
+          <InputNumber addonBefore={"y"} />
+        </Form.Item>
 
-            <Form.Item name={"z"} rules={[{ required: true }]}>
-                <InputNumber addonBefore={"z"} />
-            </Form.Item>
+        <Form.Item name={"z"} rules={[{ required: true }]}>
+          <InputNumber addonBefore={"z"} />
+        </Form.Item>
 
-            <Button type="primary" danger onClick={onDeletePoint}>
-                <DeleteOutlined />
-            </Button>
+        <Button type="primary" danger onClick={onDeletePoint}>
+          <DeleteOutlined />
+        </Button>
 
-            <Button type="primary" onClick={onUpdatePoint}>
-                <SaveOutlined />
-            </Button>
-        </Space.Compact>
+        <Button type="primary" onClick={onUpdatePoint}>
+          <SaveOutlined />
+        </Button>
+      </Space.Compact>
     </Form>
-  )
+  );
 };
 
 const Points = () => {
@@ -75,11 +81,17 @@ const Points = () => {
         overflow: "auto",
         padding: "1rem",
         boxSizing: "border-box",
-        background: '#303035'
+        background: "#181c20",
       }}
     >
+      <Divider>Points</Divider>
+
       {points.map((point, index) => (
-        <PointEditForm point={point} key={`${point.x}-${point.y}-${point.z}-${index}`} pointIndex={index} />
+        <PointEditForm
+          point={point}
+          key={`${point.x}-${point.y}-${point.z}-${index}`}
+          pointIndex={index}
+        />
       ))}
 
       <Divider />

@@ -6,17 +6,26 @@ import { ConfigProvider, theme } from "antd";
 
 const Workspace = () => {
   return (
-    <ConfigProvider theme={{
+    <ConfigProvider
+      theme={{
         algorithm: theme.darkAlgorithm,
-    }} componentSize="small">
-        <Allotment>
+        token: {},
+        components: {
+          Button: {
+            colorPrimary: "#007bff",
+          },
+        },
+      }}
+      componentSize="small"
+    >
+      <Allotment>
         <Allotment.Pane>
-            <View />
+          <View />
         </Allotment.Pane>
         <Allotment.Pane preferredSize={300}>
-            <Points />
+          <Points />
         </Allotment.Pane>
-        </Allotment>
+      </Allotment>
     </ConfigProvider>
   );
 };
