@@ -76,10 +76,12 @@ function Line({ start, end }: { start: number[]; end: number[] }) {
   useLayoutEffect(() => {
     const lineRef = ref.current;
     if (lineRef) {
-      // eslint-disable-next-line
-      ref.current.geometry.setFromPoints(
-        [start, end].map((point) => new THREE.Vector3(...point)),
-      );
+      if ("geometry" in lineRef) {
+        // @ts-ignore
+        lineRef.geometry.setFromPoints(
+          [start, end].map((point) => new THREE.Vector3(...point)),
+        );
+      }
     }
   }, [start, end]);
 
